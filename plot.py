@@ -3,13 +3,10 @@ import matplotlib.pyplot as plt
 from scipy.fft import fftn, fftshift
 import mrcfile
 
-# Open the MRC file
-with mrcfile.open('sphere.mrc', permissive=True) as mrc:
-    # Read the data into a NumPy array
-    tomogram = mrc.data
+from addWedge import add_missing_wedge
 
 
-def plotTomo(tomo):
+def plotTomo(tomo, name):
     # Perform the Fourier transform
     fourier_transformed = fftn(tomo)
 
@@ -34,7 +31,7 @@ def plotTomo(tomo):
 
     # Plot the original tomogram slices and their corresponding Fourier transform slices
 
-    fig, axes = plt.subplots(3, 2, figsize=(12, 18))
+    fig, axes = plt.subplots(3, 2, figsize=(16, 9))
 
     # XY plane
     axes[0, 0].imshow(central_slice_xy, cmap='gray')
@@ -63,5 +60,22 @@ def plotTomo(tomo):
     axes[2, 1].set_title('Fourier Transform Central Slice (YZ Plane)')
     axes[2, 1].axis('off')
 
-    plt.tight_layout()
-    plt.show()
+    plt.savefig(f'{name}.png', bbox_inches='tight', dpi=300)
+    plt.close()
+
+
+# Open the MRC file
+with mrcfile.open('sphere.mrc', permissive=True) as mrc:
+    tomogram = mrc.data
+
+# add the missing wedge
+tomogram_with_missing_wedge = add_missing_wedge(tomogram, 40)
+with mrcfile.new('sphere_with_MW.mrc', overwrite=True) as mrc:
+    mrc.set_data(tomogram_with_missing_wedge)
+
+with mrcfile.open('sphere_with_MW_corrected.mrc', permissive=True) as mrc:
+    tomogram = mrc.data
+
+
+if __name__ == "__main__":
+
