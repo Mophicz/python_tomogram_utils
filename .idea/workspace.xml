@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fc38464f-4c1d-4456-a5ce-f721e3d84c6e" name="Changes" comment="simple plot" />
+    <list default="true" id="fc38464f-4c1d-4456-a5ce-f721e3d84c6e" name="Changes" comment="sphere with and without missing wedge">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/addWedge.py" beforeDir="false" afterPath="$PROJECT_DIR$/addWedge.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/makemrc.py" beforeDir="false" afterPath="$PROJECT_DIR$/makemrc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/plot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sphere.mrc" beforeDir="false" afterPath="$PROJECT_DIR$/sphere.mrc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sphere_with_MW.mrc" beforeDir="false" afterPath="$PROJECT_DIR$/sphere_with_MW.mrc" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -29,16 +36,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.makemrc.executor&quot;: &quot;Run&quot;,
-    &quot;Python.plot.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.addWedge.executor": "Run",
+    "Python.makemrc.executor": "Run",
+    "Python.plot.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -71,7 +79,15 @@
       <option name="project" value="LOCAL" />
       <updated>1721317242367</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="sphere with and without missing wedge">
+      <option name="closed" value="true" />
+      <created>1722941683235</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1722941683235</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -87,6 +103,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="simple plot" />
-    <option name="LAST_COMMIT_MESSAGE" value="simple plot" />
+    <MESSAGE value="sphere with and without missing wedge" />
+    <option name="LAST_COMMIT_MESSAGE" value="sphere with and without missing wedge" />
   </component>
 </project>

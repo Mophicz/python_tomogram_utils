@@ -6,7 +6,11 @@ import mrcfile
 from addWedge import add_missing_wedge
 
 
-def plotTomo(tomo, name):
+def plotTomo(filename):
+    # Open the MRC file
+    with mrcfile.open(f'{filename}.mrc', permissive=True) as mrc:
+        tomo = mrc.data
+
     # Perform the Fourier transform
     fourier_transformed = fftn(tomo)
 
@@ -60,22 +64,12 @@ def plotTomo(tomo, name):
     axes[2, 1].set_title('Fourier Transform Central Slice (YZ Plane)')
     axes[2, 1].axis('off')
 
-    plt.savefig(f'{name}.png', bbox_inches='tight', dpi=300)
+    plt.savefig(f'{filename}.png', bbox_inches='tight', dpi=300)
     plt.close()
 
-
-# Open the MRC file
-with mrcfile.open('sphere.mrc', permissive=True) as mrc:
-    tomogram = mrc.data
-
-# add the missing wedge
-tomogram_with_missing_wedge = add_missing_wedge(tomogram, 40)
-with mrcfile.new('sphere_with_MW.mrc', overwrite=True) as mrc:
-    mrc.set_data(tomogram_with_missing_wedge)
-
-with mrcfile.open('sphere_with_MW_corrected.mrc', permissive=True) as mrc:
-    tomogram = mrc.data
+    print(f"Plot '{filename}.png' successfully created.")
 
 
 if __name__ == "__main__":
-
+    plotTomo('sphere')
+    plotTomo('sphere_with_MW')

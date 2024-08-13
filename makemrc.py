@@ -2,7 +2,7 @@ import numpy as np
 import mrcfile
 
 
-def mkSphere():
+def mkSphere(filename):
     # Define the size of the volume
     size = 100
     radius = 30
@@ -17,11 +17,11 @@ def mkSphere():
     sphere = sphere.astype(np.float32)
 
     # Create and save the MRC file
-    with mrcfile.new('sphere.mrc', overwrite=True) as mrc:
+    with mrcfile.new(f'{filename}.mrc', overwrite=True) as mrc:
         mrc.set_data(sphere)
 
-    print("MRC file 'sphere.mrc' created successfully.")
+    print(f"File '{filename}.mrc' successfully created.")
 
 
 if __name__ == "__main__":
-    mkSphere()
+    mkSphere('sphere')
