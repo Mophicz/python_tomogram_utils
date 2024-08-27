@@ -3,8 +3,6 @@ import matplotlib.pyplot as plt
 from scipy.fft import fftn, fftshift
 import mrcfile
 
-from addWedge import add_missing_wedge
-
 
 def plotTomo(filename):
     # Open the MRC file
@@ -73,3 +71,5 @@ def plotTomo(filename):
 if __name__ == "__main__":
     plotTomo('sphere')
     plotTomo('sphere_with_MW')
+    plotTomo('randomSpheres')
+    plotTomo('randomSpheres_with_MW')

@@ -54,3 +54,4 @@ def add_missing_wedge(filename, missing_angle):
 
 if __name__ == "__main__":
     add_missing_wedge('sphere', 40)
+    add_missing_wedge('randomSpheres', 40)
