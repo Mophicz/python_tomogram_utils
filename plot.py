@@ -69,7 +69,4 @@ def plotTomo(filename):
 
 
 if __name__ == "__main__":
-    plotTomo('sphere')
-    plotTomo('sphere_with_MW')
-    plotTomo('randomSpheres')
-    plotTomo('randomSpheres_with_MW')
+
