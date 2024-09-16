@@ -1,10 +1,13 @@
+import cv2
+import os
+import glob
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.fft import fftn, fftshift
 import mrcfile
 
 
-def plotTomo(filename):
+def plotCentralSlices(filename):
     # Open the MRC file
     with mrcfile.open(f'{filename}.mrc', permissive=True) as mrc:
         tomo = mrc.data
@@ -68,5 +71,102 @@ def plotTomo(filename):
     print(f"Plot '{filename}.png' successfully created.")
 
 
+def plotTomogram(filename, plane='XY', output_dir='output_frames'):
+    # Open the MRC file
+    with mrcfile.open(f'{filename}', permissive=True) as mrc:
+        tomo = mrc.data
+
+    # Determine the 1st and 99th percentiles for normalization
+    p1, p99 = np.percentile(tomo, (1, 99))
+
+    # Select slices based on the plane parameter
+    if plane == 'XY':
+        slices = tomo
+    elif plane == 'XZ':
+        slices = np.transpose(tomo, (1, 0, 2))
+    elif plane == 'YZ':
+        slices = np.transpose(tomo, (2, 0, 1))
+    else:
+        raise ValueError("Invalid plane. Choose from 'XY', 'XZ', or 'YZ'.")
+
+    # Normalize the slices based on the percentiles
+    normalized_slices = np.clip((slices - p1) / (p99 - p1) * 255, 0, 255).astype(np.uint8)
+
+    # Create the output directory if it doesn't exist
+    os.makedirs(output_dir, exist_ok=True)
+
+    # Save each slice as an image using matplotlib
+    for i, slice_img in enumerate(normalized_slices):
+        plt.imshow(slice_img, cmap='gray', vmin=0, vmax=255)
+        plt.axis('off')
+        output_filename = os.path.join(output_dir, f'frame_{i:04d}.png')
+        plt.savefig(output_filename, bbox_inches='tight', pad_inches=0, dpi=300)
+        plt.close()
+
+    print(f"Exported {len(normalized_slices)} frames to '{output_dir}'.")
+
+
+def plotPowerSpectrum(filename, plane='XY', output_dir='output_frames'):
+    # Open the MRC file
+    with mrcfile.open(f'{filename}', permissive=True) as mrc:
+        tomo = mrc.data
+
+    # Perform the Fourier transform
+    fourier_transformed = fftn(tomo)
+
+    # Shift the zero-frequency component to the center of the spectrum
+    fourier_transformed_shifted = fftshift(fourier_transformed)
+
+    # Compute the magnitude spectrum for visualization
+    magnitude_spectrum = np.abs(fourier_transformed_shifted)
+
+    # Log scale the magnitude spectrum for better visibility
+    magnitude_spectrum_log = np.log(magnitude_spectrum + 1)
+
+    # Determine the 1st and 99th percentiles for normalization
+    p1, p99 = np.percentile(magnitude_spectrum_log, (1, 99))
+
+    # Normalize the entire log-transformed data to the range [0, 255]
+    normalized_spectrum = np.clip((magnitude_spectrum_log - p1) / (p99 - p1) * 255, 0, 255).astype(np.uint8)
+
+    # Select slices based on the plane parameter
+    if plane == 'XY':
+        slices = normalized_spectrum  # Already in the form of XY slices
+    elif plane == 'XZ':
+        slices = np.transpose(normalized_spectrum, (1, 0, 2))  # Transpose to XZ slices
+    elif plane == 'YZ':
+        slices = np.transpose(normalized_spectrum, (2, 0, 1))  # Transpose to YZ slices
+    else:
+        raise ValueError("Invalid plane. Choose from 'XY', 'XZ', or 'YZ'.")
+
+    # Create the output directory if it doesn't exist
+    os.makedirs(output_dir, exist_ok=True)
+
+    # Save each slice as an image using matplotlib
+    for i, slice_img in enumerate(slices):
+        plt.imshow(slice_img, cmap='gray', vmin=0, vmax=255)
+        plt.axis('off')
+        output_filename = os.path.join(output_dir, f'frame_{i:04d}.png')
+        plt.savefig(output_filename, bbox_inches='tight', pad_inches=0, dpi=300)
+        plt.close()
+
+    print(f"Exported {len(slices)} frames to '{output_dir}'.")
+
+
+def deleteAllFrames(output_dir='output_frames'):
+    # Get a list of all files in the directory
+    file_pattern = os.path.join(output_dir, '*.png')
+    files = glob.glob(file_pattern)
+
+    # Delete each file
+    for file in files:
+        os.remove(file)
+
+
 if __name__ == "__main__":
 
+    deleteAllFrames()
+
+    #plotPowerSpectrum(filename='/Volumes/homes/frasunkiewicz/Documents/isonet/isonet_celegans_tomos_KW_2/corrected_tomos/nms297_tomo10_wbp_ramp_0p5k_corrected_v1.mrc', plane='YZ')
+
+    plotTomogram(filename='/Volumes/homes/frasunkiewicz/Documents/isonet/isonet_tomo_28_rec/tomo/tomo_28_rec.mrc', plane='XY')
