@@ -4,8 +4,8 @@ import mrcfile
 
 def mkSphere(filename):
     # Define the size of the volume
-    size = 100
-    radius = 30
+    size = 512
+    radius = 150
 
     # Create a 3D grid of coordinates
     x, y, z = np.indices((size, size, size)) - size//2
@@ -70,4 +70,4 @@ def mkRandomSpheres(filename, num_spheres, sphere_radius):
 
 if __name__ == "__main__":
     mkSphere('sphere')
-    mkRandomSpheres('randomSpheres', 50, 5)
+    #mkRandomSpheres('randomSpheres', 50, 5)

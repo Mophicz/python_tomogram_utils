@@ -1,4 +1,3 @@
-import cv2
 import os
 import glob
 import numpy as np
@@ -169,4 +168,6 @@ if __name__ == "__main__":
 
     #plotPowerSpectrum(filename='/Volumes/homes/frasunkiewicz/Documents/isonet/isonet_celegans_tomos_KW_2/corrected_tomos/nms297_tomo10_wbp_ramp_0p5k_corrected_v1.mrc', plane='YZ')
 
-    plotTomogram(filename='/Volumes/homes/frasunkiewicz/Documents/isonet/isonet_tomo_28_rec/tomo/tomo_28_rec.mrc', plane='XY')
+    #plotTomogram(filename='/Volumes/homes/frasunkiewicz/Documents/isonet/isonet_tomo_28_rec/tomo/tomo_28_rec.mrc', plane='XY')
+
+    #plotTomogram(filename='sphere_2x_binned.mrc', plane='XY')
