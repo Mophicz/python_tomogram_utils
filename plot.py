@@ -8,7 +8,7 @@ import mrcfile
 
 def plotCentralSlices(filename):
     # Open the MRC file
-    with mrcfile.open(f'{filename}.mrc', permissive=True) as mrc:
+    with mrcfile.open(f'{filename}', permissive=True) as mrc:
         tomo = mrc.data
 
     # Perform the Fourier transform
@@ -166,8 +166,8 @@ if __name__ == "__main__":
 
     deleteAllFrames()
 
-    #plotPowerSpectrum(filename='/Volumes/homes/frasunkiewicz/Documents/isonet/isonet_celegans_tomos_KW_2/corrected_tomos/nms297_tomo10_wbp_ramp_0p5k_corrected_v1.mrc', plane='YZ')
+    plotPowerSpectrum(filename='/Volumes/homes/frasunkiewicz/Documents/isonet/tomo_28_binned/corrected_tomos/2xbinned_tomo_28_rec_rotated_corrected.mrc', plane='YZ')
 
-    #plotTomogram(filename='/Volumes/homes/frasunkiewicz/Documents/isonet/isonet_tomo_28_rec/tomo/tomo_28_rec.mrc', plane='XY')
+    #plotTomogram(filename='/Volumes/homes/frasunkiewicz/Documents/isonet/tomo_28_binned/corrected_tomos/2xbinned_tomo_28_rec_rotated_corrected.mrc', plane='XY')
 
     #plotTomogram(filename='sphere_2x_binned.mrc', plane='XY')

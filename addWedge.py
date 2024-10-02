@@ -14,7 +14,7 @@ def add_missing_wedge(filename, missing_angle):
     numpy.ndarray: The tomogram with the missing wedge applied.
     """
     # Open the MRC file
-    with mrcfile.open(f'{filename}.mrc', permissive=True) as mrc:
+    with mrcfile.open(f'./tomograms/{filename}', permissive=True) as mrc:
         tomo = mrc.data
 
     # Perform FFT on the tomogram to get the Fourier transform
@@ -46,12 +46,13 @@ def add_missing_wedge(filename, missing_angle):
     # Perform inverse FFT to get the tomogram with the missing wedge
     tomogram_with_missing_wedge = np.fft.ifftn(tomogram_fft).real
 
-    with mrcfile.new(f'{filename}_with_MW.mrc', overwrite=True) as mrc:
+    split_filename = filename.split('.')
+    with mrcfile.new(f'./tomograms/{split_filename[0]}_with_MW.mrc', overwrite=True) as mrc:
         mrc.set_data(tomogram_with_missing_wedge)
 
-    print(f"File '{filename}_with_MW.mrc' successfully created.")
+    print(f"File '{split_filename[0]}_with_MW.mrc' successfully created.")
 
 
 if __name__ == "__main__":
-    add_missing_wedge('sphere', 40)
-    add_missing_wedge('randomSpheres', 40)
+    add_missing_wedge('sphere.mrc', 40)
+    add_missing_wedge('randomSpheres.mrc', 40)

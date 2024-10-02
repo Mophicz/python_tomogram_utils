@@ -17,10 +17,10 @@ def mkSphere(filename):
     sphere = sphere.astype(np.float32)
 
     # Create and save the MRC file
-    with mrcfile.new(f'{filename}.mrc', overwrite=True) as mrc:
+    with mrcfile.new(f'tomograms/{filename}', overwrite=True) as mrc:
         mrc.set_data(sphere)
 
-    print(f"File '{filename}.mrc' successfully created.")
+    print(f"File 'tomograms/{filename}' successfully created.")
 
 
 def mkRandomSpheres(filename, num_spheres, sphere_radius):
@@ -62,12 +62,12 @@ def mkRandomSpheres(filename, num_spheres, sphere_radius):
             print(f"Warning: Could not place sphere {_ + 1} after {max_attempts} attempts.")
 
     # Create and save the MRC file
-    with mrcfile.new(f'{filename}.mrc', overwrite=True) as mrc:
+    with mrcfile.new(f'tomograms/{filename}', overwrite=True) as mrc:
         mrc.set_data(volume)
 
-    print(f"File '{filename}.mrc' successfully created.")
+    print(f"File 'tomograms/{filename}' successfully created.")
 
 
 if __name__ == "__main__":
-    mkSphere('sphere')
+    mkSphere('sphere.mrc')
     #mkRandomSpheres('randomSpheres', 50, 5)

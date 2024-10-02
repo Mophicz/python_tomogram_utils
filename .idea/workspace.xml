@@ -4,15 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fc38464f-4c1d-4456-a5ce-f721e3d84c6e" name="Changes" comment="reorganized execution">
-      <change afterPath="$PROJECT_DIR$/binning.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/makeVideo.py" afterDir="false" />
+    <list default="true" id="fc38464f-4c1d-4456-a5ce-f721e3d84c6e" name="Changes" comment="test push">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rotateTomo.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/tomovis.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/tomovis.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/addWedge.py" beforeDir="false" afterPath="$PROJECT_DIR$/addWedge.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/binning.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/makemrc.py" beforeDir="false" afterPath="$PROJECT_DIR$/makemrc.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/plot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sphere.mrc" beforeDir="false" afterPath="$PROJECT_DIR$/sphere.mrc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/randomSpheres.mrc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/randomSpheres.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/randomSpheres_with_MW.mrc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/randomSpheres_with_MW.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sphere.mrc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sphere.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sphere_with_MW.mrc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sphere_with_MW.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,18 +38,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "Mophicz"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Mophicz&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Mophicz/Tomovis.git",
-    "accountId": "92f7b14d-4181-4342-bf24-4834ed4bfddc"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Mophicz/Tomovis.git&quot;,
+    &quot;accountId&quot;: &quot;bfca7238-364f-4c57-ad67-50c7588fb1de&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
@@ -57,16 +66,17 @@
     "Python.makeVideo.executor": "Run",
     "Python.makemrc.executor": "Run",
     "Python.plot.executor": "Run",
+    "Python.rotateTomo.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+    "settings.editor.selected.configurable": "com.intellij.pycharm.community.ide.impl.configuration.PythonContentEntriesConfigurable"
   }
 }]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-98f27166c754-ba05f1cad1b1-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-242.21829.153" />
+        <option value="bundled-python-sdk-abccbe9d933a-ba05f1cad1b1-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-242.20224.428" />
       </set>
     </attachedChunks>
   </component>

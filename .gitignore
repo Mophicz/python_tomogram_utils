@@ -1,0 +1,5 @@
+output_frames/
+plots/
+tomograms/
+*.mrc
+*.png
