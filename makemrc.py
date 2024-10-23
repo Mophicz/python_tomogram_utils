@@ -1,7 +1,6 @@
 import numpy as np
 import mrcfile
 
-
 def mkSphere(filename):
     # Define the size of the volume
     size = 512
