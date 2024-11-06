@@ -20,12 +20,12 @@ def rotateTomogram(filename, angles=(-60, 60)):
     wedge_angle_sum = wedge_angle_start + wedge_angle_end
     rotation_angle = wedge_angle_end - wedge_angle_sum/2
 
-    print(rotation_angle)
+    print(f"rotation: {-rotation_angle}")
 
     with mrcfile.open(f'{filename}', permissive=True) as mrc:
         tomogram = mrc.data
 
-    rotated_tomogram = scipy.ndimage.rotate(tomogram, rotation_angle, axes=(0, 2), reshape=False)
+    rotated_tomogram = scipy.ndimage.rotate(tomogram, -rotation_angle, axes=(0, 2), reshape=False)
 
     split_filename = filename.split('.')
     new_filename = split_filename[0] + '_rotated.mrc'

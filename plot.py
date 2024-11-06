@@ -4,6 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.fft import fftn, fftshift
 import mrcfile
+import sys
 
 
 def plotCentralSlices(filename):
@@ -96,12 +97,15 @@ def plotTomogram(filename, plane='XY', output_dir='output_frames'):
 
     # Save each slice as an image using matplotlib
     for i, slice_img in enumerate(normalized_slices):
+        sys.stdout.write(f"\rSaving slice {i + 1}/{len(normalized_slices)}")
+        sys.stdout.flush()
         plt.imshow(slice_img, cmap='gray', vmin=0, vmax=255)
         plt.axis('off')
         output_filename = os.path.join(output_dir, f'frame_{i:04d}.png')
         plt.savefig(output_filename, bbox_inches='tight', pad_inches=0, dpi=300)
         plt.close()
 
+    print()
     print(f"Exported {len(normalized_slices)} frames to '{output_dir}'.")
 
 
@@ -143,12 +147,15 @@ def plotPowerSpectrum(filename, plane='XY', output_dir='output_frames'):
 
     # Save each slice as an image using matplotlib
     for i, slice_img in enumerate(slices):
+        sys.stdout.write(f"\rSaving slice {i + 1}/{len(slices)}")
+        sys.stdout.flush()
         plt.imshow(slice_img, cmap='gray', vmin=0, vmax=255)
         plt.axis('off')
         output_filename = os.path.join(output_dir, f'frame_{i:04d}.png')
         plt.savefig(output_filename, bbox_inches='tight', pad_inches=0, dpi=300)
         plt.close()
 
+    print()
     print(f"Exported {len(slices)} frames to '{output_dir}'.")
 
 
@@ -166,7 +173,7 @@ if __name__ == "__main__":
 
     deleteAllFrames()
 
-    plotPowerSpectrum(filename='/Volumes/homes/frasunkiewicz/Documents/isonet/Nephrocytes_NP5_S2/tomo35_clicker_rec_ctf_binned_rotated.mrc', plane='XZ')
+    plotPowerSpectrum(filename='/Volumes/homes/frasunkiewicz/Documents/isonet/Nephrocytes_NP5_S2/tomo34_clicker_rec_ctf_binned_rotated.mrc', plane='XZ')
 
     #plotTomogram(filename='/Volumes/homes/frasunkiewicz/Documents/isonet/tomo_28_binned/corrected_tomos/2xbinned_tomo_28_rec_rotated_corrected.mrc', plane='XY')
 

@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fc38464f-4c1d-4456-a5ce-f721e3d84c6e" name="Changes" comment="test push">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/tomovis.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/tomovis.iml" afterDir="false" />
+    <list default="true" id="fc38464f-4c1d-4456-a5ce-f721e3d84c6e" name="Changes" comment="rotateTomo updated">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/plot.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rotateTomo.py" beforeDir="false" afterPath="$PROJECT_DIR$/rotateTomo.py" afterDir="false" />
@@ -110,7 +108,15 @@
       <option name="project" value="LOCAL" />
       <updated>1723560060155</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="rotateTomo updated">
+      <option name="closed" value="true" />
+      <created>1730898309469</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1730898309469</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -128,6 +134,7 @@
     <MESSAGE value="simple plot" />
     <MESSAGE value="sphere with and without missing wedge" />
     <MESSAGE value="reorganized execution" />
-    <option name="LAST_COMMIT_MESSAGE" value="reorganized execution" />
+    <MESSAGE value="rotateTomo updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="rotateTomo updated" />
   </component>
 </project>
