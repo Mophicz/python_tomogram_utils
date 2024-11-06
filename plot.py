@@ -166,7 +166,7 @@ if __name__ == "__main__":
 
     deleteAllFrames()
 
-    plotPowerSpectrum(filename='/Volumes/homes/frasunkiewicz/Documents/isonet/tomo_28_binned/corrected_tomos/2xbinned_tomo_28_rec_rotated_corrected.mrc', plane='YZ')
+    plotPowerSpectrum(filename='/Volumes/homes/frasunkiewicz/Documents/isonet/Nephrocytes_NP5_S2/tomo35_clicker_rec_ctf_binned_rotated.mrc', plane='XZ')
 
     #plotTomogram(filename='/Volumes/homes/frasunkiewicz/Documents/isonet/tomo_28_binned/corrected_tomos/2xbinned_tomo_28_rec_rotated_corrected.mrc', plane='XY')
 
