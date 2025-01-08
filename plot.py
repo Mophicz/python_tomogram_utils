@@ -65,10 +65,12 @@ def plotCentralSlices(filename):
     axes[2, 1].set_title('Fourier Transform Central Slice (YZ Plane)')
     axes[2, 1].axis('off')
 
-    plt.savefig(f'{filename}.png', bbox_inches='tight', dpi=300)
+    png_filename = os.path.splitext(filename)[0]
+
+    plt.savefig(f'{png_filename}.png', bbox_inches='tight', dpi=300)
     plt.close()
 
-    print(f"Plot '{filename}.png' successfully created.")
+    print(f"Plot '{png_filename}.png' successfully created.")
 
 
 def plotTomogram(filename, plane='XY', output_dir='output_frames'):
@@ -171,10 +173,12 @@ def deleteAllFrames(output_dir='output_frames'):
 
 if __name__ == "__main__":
 
-    deleteAllFrames()
+    #deleteAllFrames()
 
-    plotPowerSpectrum(filename='/Volumes/homes/frasunkiewicz/Documents/isonet/Nephrocytes_NP5_S2/tomo34_clicker_rec_ctf_binned_rotated.mrc', plane='XZ')
+    #plotPowerSpectrum(filename='/Volumes/homes/frasunkiewicz/Projects/deepdewedge/Drosophila/rec_tomo_5_half1_binned_rotated.mrc', plane='XZ')
 
     #plotTomogram(filename='/Volumes/homes/frasunkiewicz/Documents/isonet/tomo_28_binned/corrected_tomos/2xbinned_tomo_28_rec_rotated_corrected.mrc', plane='XY')
 
     #plotTomogram(filename='sphere_2x_binned.mrc', plane='XY')
+
+    plotCentralSlices(filename='/Volumes/homes/frasunkiewicz/Projects/isonet/artificial_data_tests/repetitive_sphere/tomos/repetitive_sphere_mw_30.mrc')

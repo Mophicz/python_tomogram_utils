@@ -2,7 +2,7 @@ import numpy as np
 import mrcfile
 
 
-def add_missing_wedge(filename, missing_angle):
+def add_missing_wedge(filepath, missing_angle):
     """
     Add a missing wedge to a tomogram in the xz-plane of the Fourier space.
 
@@ -14,7 +14,7 @@ def add_missing_wedge(filename, missing_angle):
     numpy.ndarray: The tomogram with the missing wedge applied.
     """
     # Open the MRC file
-    with mrcfile.open(f'./tomograms/{filename}', permissive=True) as mrc:
+    with mrcfile.open(filepath, permissive=True) as mrc:
         tomo = mrc.data
 
     # Perform FFT on the tomogram to get the Fourier transform
@@ -24,12 +24,14 @@ def add_missing_wedge(filename, missing_angle):
     missing_angle_rad = np.deg2rad(missing_angle)
 
     # Get the size of the tomogram
-    size = tomo.shape[0]
+    x = tomo.shape[0]
+    y = tomo.shape[1]
+    z = tomo.shape[2]
 
     # Create 1D arrays for the kx, ky, and kz frequencies
-    kx = np.fft.fftfreq(size) * size
-    ky = np.fft.fftfreq(size) * size
-    kz = np.fft.fftfreq(size) * size
+    kx = np.fft.fftfreq(x) * x
+    ky = np.fft.fftfreq(y) * y
+    kz = np.fft.fftfreq(z) * z
 
     # Create a 3D grid of frequencies
     kX, kY, kZ = np.meshgrid(kx, ky, kz, indexing='ij')
@@ -46,13 +48,12 @@ def add_missing_wedge(filename, missing_angle):
     # Perform inverse FFT to get the tomogram with the missing wedge
     tomogram_with_missing_wedge = np.fft.ifftn(tomogram_fft).real
 
-    split_filename = filename.split('.')
-    with mrcfile.new(f'./tomograms/{split_filename[0]}_with_MW.mrc', overwrite=True) as mrc:
+    split_filename = filepath.split('.')
+    with mrcfile.new(f'{split_filename[0]}_mw_{missing_angle}.mrc', overwrite=True) as mrc:
         mrc.set_data(tomogram_with_missing_wedge)
 
-    print(f"File '{split_filename[0]}_with_MW.mrc' successfully created.")
+    print(f"File '{split_filename[0]}_mw_{missing_angle}.mrc' successfully created.")
 
 
 if __name__ == "__main__":
-    add_missing_wedge('sphere.mrc', 40)
-    add_missing_wedge('randomSpheres.mrc', 40)
+    add_missing_wedge('/Volumes/homes/frasunkiewicz/Projects/isonet/artificial_data_tests/repetitive_sphere/tomos/repetitive_sphere.mrc', 30)
