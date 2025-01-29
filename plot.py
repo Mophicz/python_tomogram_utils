@@ -29,7 +29,7 @@ Functions:
 Command-line Usage:
     python plot.py <tomogram_path> --mode <mode> [--save_dir <save_dir>] [--plane <plane>]
 
-Arguments:
+Command-line arguments:
     tomogram_path (str): Path to the tomogram file to process.
 
 Options:
@@ -46,14 +46,14 @@ Options:
         - "YZ"
 
 Example Usage:
-    1) Generate central slice plot:\n
-    >>>python plot.py path/to/tomogram --mode csp
+    1) Generate central slice plot:
+        $ python plot.py path/to/tomogram --mode csp
 
-    2) Generate image stack along the XZ plane:\n
-    >>>python plot.py path/to/tomogram --mode stack --plane XZ --save_dir path/to/output
+    2) Generate image stack along the XZ plane:
+        $ python plot.py path/to/tomogram --mode stack --plane XZ --save_dir path/to/output
 
-    3) Generate power spectrum image stack in the XY plane:\n
-    >>>python plot.py path/to/tomogram --mode stack_ps --save_dir path/to/output
+    3) Generate power spectrum image stack in the XY plane:
+        $ python plot.py path/to/tomogram --mode stack_ps --save_dir path/to/output
 """
 
 
@@ -172,7 +172,7 @@ def mkImageStack(tomogram_path, plane='XY', save_dir=None):
         ValueError: If plane is not one of the three options: 'XY', 'XZ or 'YZ'.
 
     Example:
-        >>>mkImageStack(tomogram_path='path/to/tomogram')
+        mkImageStack(tomogram_path='path/to/tomogram')
     """
     print('\nloading tomogram..')
 
@@ -236,7 +236,7 @@ def mkPowerSpectrum(tomogram_path, plane='XY', save_dir=None):
         ValueError: If plane is not one of the three options: 'XY', 'XZ or 'YZ'.
 
     Example:
-        >>>mkPowerSpectrum(tomogram_path='path/to/tomogram')
+        mkPowerSpectrum(tomogram_path='path/to/tomogram')
         """
     print('\nloading tomogram..')
 
@@ -306,9 +306,9 @@ def main():
     - Power spectrum image stacks
 
     Usage:
-        python script.py <tomogram_path> --mode <mode> [--save_dir <save_dir>] [--plane <plane>]
+        python plot.py <tomogram_path> --mode <mode> [--save_dir <save_dir>] [--plane <plane>]
 
-    Arguments:
+    Command-Line arguments:
         tomogram_path (str):
             Path to the tomogram file.
 
@@ -329,14 +329,14 @@ def main():
             - "YZ"
 
     Example Usage:
-        1) Generate a central slice plot:\n
-        >>>python plot.py path/to/tomogram --mode csp
+        1) Generate a central slice plot:
+            $ python plot.py path/to/tomogram --mode csp
 
-        2) Generate an image stack along the XZ plane:\n
-        >>>python plot.py path/to/tomogram --mode stack --plane XZ --save_dir path/to/output
+        2) Generate an image stack along the XZ plane:
+            $ python plot.py path/to/tomogram --mode stack --plane XZ --save_dir path/to/output
 
-        3) Generate a power spectrum image stack in the default XY plane:\n
-        >>>python plot.py path/to/tomogram --mode stack_ps --save_dir path/to/output
+        3) Generate a power spectrum image stack in the default XY plane:
+            $ python plot.py path/to/tomogram --mode stack_ps --save_dir path/to/output
     """
     parser = argparse.ArgumentParser(description="Generate and save tomogram slice plots or image stacks.")
     parser.add_argument("tomogram_path", type=str, help="Path to the tomogram file.")

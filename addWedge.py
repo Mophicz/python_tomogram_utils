@@ -1,32 +1,39 @@
+import os
+import argparse
 import numpy as np
 import mrcfile
 
 
-def add_missing_wedge(filepath, missing_angle):
+def add_missing_wedge(tomogram_path, angle):
     """
     Add a missing wedge to a tomogram in the xz-plane of the Fourier space.
 
-    Parameters:
-    tomogram (numpy.ndarray): The input 3D tomogram.
-    missing_angle (float): The missing angle in degrees.
+    Args:
+        tomogram_path (str): Path leading to the tomogram.
+        angle (float): Angle of the missing wedge in degrees.
 
     Returns:
-    numpy.ndarray: The tomogram with the missing wedge applied.
+        None
+
+    Example:
+        add_missing_wedge(tomogram_path='path/to/tomogram', angles=60)
     """
+    print('\nLoading tomogram...')
+
     # Open the MRC file
-    with mrcfile.open(filepath, permissive=True) as mrc:
+    with mrcfile.open(tomogram_path, permissive=True) as mrc:
         tomo = mrc.data
+
+    print('\nFinished loading')
 
     # Perform FFT on the tomogram to get the Fourier transform
     tomogram_fft = np.fft.fftn(tomo)
 
-    # Calculate the missing wedge in radians
-    missing_angle_rad = np.deg2rad(missing_angle)
+    # Convert angle to radians
+    angle_rad = np.deg2rad(angle)
 
     # Get the size of the tomogram
-    x = tomo.shape[0]
-    y = tomo.shape[1]
-    z = tomo.shape[2]
+    x, y, z = tomo.shape
 
     # Create 1D arrays for the kx, ky, and kz frequencies
     kx = np.fft.fftfreq(x) * x
@@ -36,11 +43,11 @@ def add_missing_wedge(filepath, missing_angle):
     # Create a 3D grid of frequencies
     kX, kY, kZ = np.meshgrid(kx, ky, kz, indexing='ij')
 
-    # Calculate angles in the xz-plane
+    # Calculate angles in the xy-plane
     theta = np.arctan2(np.abs(kZ), np.abs(kX))
 
     # Create the missing wedge mask
-    missing_wedge_mask = (theta < missing_angle_rad)
+    missing_wedge_mask = (theta < angle_rad)
 
     # Apply the missing wedge mask to the Fourier transform
     tomogram_fft[missing_wedge_mask] = 0
@@ -48,12 +55,39 @@ def add_missing_wedge(filepath, missing_angle):
     # Perform inverse FFT to get the tomogram with the missing wedge
     tomogram_with_missing_wedge = np.fft.ifftn(tomogram_fft).real
 
-    split_filename = filepath.split('.')
-    with mrcfile.new(f'{split_filename[0]}_mw_{missing_angle}.mrc', overwrite=True) as mrc:
-        mrc.set_data(tomogram_with_missing_wedge)
+    base_path = os.path.splitext(tomogram_path)[0]
+    base_name = os.path.basename(base_path)
+    new_path = f'{base_path}_mw_{angle}.mrc'
 
-    print(f"File '{split_filename[0]}_mw_{missing_angle}.mrc' successfully created.")
+    with mrcfile.new(new_path, overwrite=True) as mrc:
+        mrc.set_data(tomogram_with_missing_wedge.astype(np.float32))
+
+    print(f"\nFile '{base_name}_mw_{angle}.mrc' successfully created.")
+
+
+def main():
+    """
+    Parse command-line arguments and apply a missing wedge to the given tomogram.
+
+    This function allows the script to be executed from the command line, where it:
+    - Reads a tomogram from an MRC file.
+    - Applies a missing wedge in the xz-plane of its Fourier space based on user-provided angles.
+    - Saves the modified tomogram as a new MRC file.
+
+    Command-line arguments:
+        tomogram_path (str): Path to the input tomogram (MRC file).
+        angles (float, float): The start and end angles (in degrees) defining the missing wedge.
+
+    Example usage:
+        $ python addWedge.py path/to/tomogram.mrc -60 30
+    """
+    parser = argparse.ArgumentParser(description="Add a missing wedge to a tomogram in Fourier space.")
+    parser.add_argument("tomogram_path", type=str, help="Path to the input tomogram.")
+    parser.add_argument("angles", type=float, nargs=1, help="Start and end angles of the missing wedge (degrees).")
+
+    args = parser.parse_args()
+    add_missing_wedge(args.tomogram_path, args.angles)
 
 
 if __name__ == "__main__":
-    add_missing_wedge('/Volumes/homes/frasunkiewicz/Projects/isonet/artificial_data_tests/repetitive_sphere/tomos/repetitive_sphere.mrc', 30)
+    main()
