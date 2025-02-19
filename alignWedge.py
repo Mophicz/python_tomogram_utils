@@ -30,7 +30,6 @@ Example Usage:
 """
 
 
-
 import os
 import argparse
 import mrcfile

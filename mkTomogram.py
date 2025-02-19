@@ -1,11 +1,40 @@
-from fileinput import filename
+"""
+mkTomogram.py
+
+Author: Michael Frasunkiewicz
+Date: 19.02.2025
+
+This script has two examples of generating simple synthetic tomograms using spheres. The functions can be called by running the script after entering the function with a valid filepath in the if-statement at the bottom of the script.
+
+Modules:
+    numpy, mrcfile
+
+Functions:
+    getSphere(x, y, z, center, radius, thickness):
+        Generate a sphere at given coordinates with given radius and thickness in a 3D volume.
+
+    mkSphere(filepath):
+        Save a tomogram (with .mrc file extension) of a volume with defined dimensions and a single sphere of specified dimensions in the center.
+
+    mkRandomSpheres(filepath):
+        Save a tomogram (with .mrc file extension) of a volume with defined dimensions and a defined number of randomly positioned spheres with specified dimensions.
+
+Example Usage:
+    if __name__ == "__main__":
+        mkSphere("/path/to/tomogram.mrc")
+"""
+
 
 import numpy as np
 import mrcfile
 
 
 def getSphere(x, y, z, center, radius, thickness):
+    """
+    Generate a sphere at given coordinates with given radius and thickness in a 3D volume.
+    """
     center_distance = (x - center[0]) ** 2 + (y - center[1]) ** 2 + (z - center[2]) ** 2
+
     # Compute inner and outer radius
     outer_radius_squared = radius ** 2
     inner_radius_squared = (radius - thickness) ** 2
@@ -13,7 +42,11 @@ def getSphere(x, y, z, center, radius, thickness):
     sphere = (center_distance <= outer_radius_squared) & (center_distance >= inner_radius_squared)
     return sphere
 
+
 def mkSphere(filepath):
+    """
+    Save a tomogram (with .mrc file extension) of a volume with defined dimensions and a single sphere of specified dimensions in the center.
+    """
     dim = (512, 720, 650)
     inner_radius = 150
     outer_radius = 170
@@ -43,7 +76,7 @@ def mkSphere(filepath):
 
 def mkRandomSpheres(filepath):
     """
-    Generate multiple double-shell spherical masks randomly positioned without overlap in a 3D volume.
+    Save a tomogram (with .mrc file extension) of a volume with defined dimensions and a defined number of randomly positioned spheres with specified dimensions.
     """
     # Volume dimensions (same as in mkSphere)
     dim = (512, 720, 650)
@@ -106,4 +139,4 @@ def mkRandomSpheres(filepath):
 
 
 if __name__ == "__main__":
-    mkRandomSpheres('/Volumes/homes/frasunkiewicz/Projects/isonet/artificial_data_tests/repetitive_sphere/tomos/repetitive_sphere.mrc')
+    mkSphere('')
