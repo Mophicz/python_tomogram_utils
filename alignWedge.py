@@ -1,39 +1,62 @@
+"""
+alignWedge.py
+
+Author: Michael Frasunkiewicz
+Date: 19.02.2025
+
+This script rotates a tomogram to symmetrize the missing wedge in the Fourier space. The missing wedge typically arises in cryo-ET due to the limited tilt-range during acquisition. By rotating the tomogram in the XZ-plane, the missing wedge is aligned symmetrically to the Z-axis.
+
+Modules:
+    os, argparse, mrcfile, scipy
+
+Functions:
+    rotateTomogram(tomogram_path, angles, save_dir=None):
+        Rotates a tomogram in the XZ-plane based on the given tilt angles to symmetrize the missing wedge.
+
+    main():
+        Command-line interface for processing tomograms.
+
+Command-line Usage:
+    $ python alignWedge.py <tomogram_path> <negative_angle> <positive_angle> [--save_dir <save_dir>]
+
+Command-line arguments:
+    tomogram_path (str): Path to the input tomogram (MRC file).
+    angles (tuple of float): The start and end angles (in degrees) of the missing wedge, measured from the Z-axis.
+                             The first value should be negative and the second positive.
+    --save_dir (str, optional): Directory to save the rotated tomogram. Defaults to the input tomogram's directory.
+
+Example Usage:
+    $ python alignWedge.py path/to/tomogram.mrc -60 30 --save_dir path/to/output
+"""
+
 
 
 import os
 import argparse
 import mrcfile
 import scipy
-from sympy.codegen.ast import float32
 
 
 def rotateTomogram(tomogram_path, angles, save_dir=None):
     """
-    Rotates a tomogram with asymmetrical missing wedge to make the wedge symmetrical to the XZ-plane.
+    Rotates a tomogram with non-symmetrical missing wedge in the XZ-plane to make the wedge symmetrical to the Z-axis.
 
     Args::
         tomogram_path (str): Path leading to the tomogram to be rotated.
-        angles (tuple of float): The start and end angle of the tilt series (the first should be negative).
-
-    Returns:
-        None
-
-    Raises:
-        None
+        angles (tuple of float): The start and end angle of the tilt series acquisition.
 
     Example:
-        rotateTomogram(tomogram_path='path/to/tomogram', angles=(-60, 60))
+        rotateTomogram(tomogram_path='path/to/tomogram', angles=(-60, 30))
     """
     # calculate rotation-angle from tilt series acquisition angles
-    wedge_angle_start = 90 + angles[0]
-    wedge_angle_end = 90 - angles[1]
-    wedge_angle_sum = wedge_angle_start + wedge_angle_end
-    rotation_angle = wedge_angle_end - wedge_angle_sum / 2
+    wedge_angle_start, wedge_angle_end = angles
+    wedge_angle_sum = abs(wedge_angle_start) + abs(wedge_angle_end)
+    rotation_angle = (abs(wedge_angle_start) - abs(wedge_angle_end)) / 2
 
     print(f"\nwedge-sum: {wedge_angle_sum} deg")
     print(f"rotation: {-rotation_angle} deg")
 
-    print('\nloading tomogram..')
+    print('\nloading tomogram...')
 
     # Open the MRC file
     with mrcfile.open(f'{tomogram_path}', permissive=True) as mrc:
@@ -41,7 +64,7 @@ def rotateTomogram(tomogram_path, angles, save_dir=None):
 
     print('\nfinished loading')
 
-    rotated_tomogram = scipy.ndimage.rotate(tomo, -rotation_angle, axes=(0, 2), reshape=False)
+    rotated_tomogram = scipy.ndimage.rotate(tomo, -rotation_angle, axes=(0, 2), reshape=False, order=3, mode='constant', cval=0)
 
     # extract tomograms directory path as default save_dir
     base_path = os.path.splitext(tomogram_path)[0]
@@ -55,7 +78,7 @@ def rotateTomogram(tomogram_path, angles, save_dir=None):
     with mrcfile.new(f'{save_path}', overwrite=True) as mrc:
         mrc.set_data(rotated_tomogram)
 
-    print(f"\nTomogram successfully rotated.")
+    print(f"\nTomogram successfully rotated.\n")
 
 
 def main():
@@ -77,7 +100,7 @@ def main():
             Directory where the output will be saved. Defaults to the directory of the input tomogram.
 
     Example Usage:
-        python rotate.py path/to/tomogram --angles (-60, 60) --save_dir path/to/output
+        python alignWedge.py path/to/tomogram --angles (-60, 60) --save_dir path/to/output
     """
     parser = argparse.ArgumentParser(description="Rotate tomograms for missing wedge symmetry.")
     parser.add_argument("tomogram_path", type=str, help="Path to the tomogram file.")
@@ -86,7 +109,7 @@ def main():
                         help="Directory to save the output. Defaults to the tomogram's location.")
 
     args = parser.parse_args()
-    rotateTomogram(args.tomogram_path, args.angle, args.save_dir)
+    rotateTomogram(args.tomogram_path, args.angles, args.save_dir)
 
 
 if __name__ == "__main__":

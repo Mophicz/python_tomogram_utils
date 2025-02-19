@@ -84,7 +84,7 @@ def plotCentralSlices(tomogram_path, save_dir=None):
     Example:
         >>>plotCentralSlices(tomogram_path='path/to/tomogram')
     """
-    print('\nloading tomogram..')
+    print('\nloading tomogram...')
 
     # Open the MRC file
     with mrcfile.open(f'{tomogram_path}', permissive=True) as mrc:
@@ -153,7 +153,7 @@ def plotCentralSlices(tomogram_path, save_dir=None):
     plt.savefig(save_path, bbox_inches='tight', dpi=300)
     plt.close()
 
-    print(f"\nPlot '{base_name}.png' successfully created.")
+    print(f"\nPlot '{base_name}.png' successfully created.\n")
 
 
 def mkImageStack(tomogram_path, plane='XY', save_dir=None):
@@ -217,7 +217,7 @@ def mkImageStack(tomogram_path, plane='XY', save_dir=None):
         plt.savefig(output_filename, bbox_inches='tight', pad_inches=0, dpi=300)
         plt.close()
 
-    print(f"\nExported {len(normalized_slices)} frames to '{save_dir}'.")
+    print(f"\nExported {len(normalized_slices)} frames to '{save_dir}'.\n")
 
 
 def mkPowerSpectrum(tomogram_path, plane='XY', save_dir=None):
@@ -244,7 +244,7 @@ def mkPowerSpectrum(tomogram_path, plane='XY', save_dir=None):
     with mrcfile.open(f'{tomogram_path}', permissive=True) as mrc:
         tomo = mrc.data
 
-    print('\nfinished loading\n')
+    print('\nfinished loading')
 
     # Perform the Fourier transform
     fourier_transformed = fftn(tomo)
@@ -293,7 +293,7 @@ def mkPowerSpectrum(tomogram_path, plane='XY', save_dir=None):
         plt.savefig(output_filename, bbox_inches='tight', pad_inches=0, dpi=300)
         plt.close()
 
-    print(f"\nExported {len(slices)} frames to '{save_dir}'.")
+    print(f"\nExported {len(slices)} frames to '{save_dir}'.\n")
 
 
 def main():
